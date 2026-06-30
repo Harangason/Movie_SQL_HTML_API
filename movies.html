@@ -1,0 +1,1262 @@
+<html>
+<head>
+    <title>My Movie App</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="Movie_SQL_HTML_API/HTML/style.css"/>
+</head>
+<body>
+<header class="list-movies-title">
+    <h1>My Movie App</h1>
+</header>
+    <div class="app-layout app-layout--menu-hidden">
+        <aside class="sidebar">
+            <section class="panel cli-panel">
+                <h2>CLI Menu</h2>
+                <ul class="cli-options">
+                            <li><button type="button" class="cli-option" data-cli-choice="0" data-cli-label="0. Exit">0. Exit</button></li>
+        <li><button type="button" class="cli-option" data-cli-choice="1" data-cli-label="1. List movies">1. List movies</button></li>
+        <li><button type="button" class="cli-option" data-cli-choice="2" data-cli-label="2. Add movie">2. Add movie</button></li>
+        <li><button type="button" class="cli-option" data-cli-choice="3" data-cli-label="3. Delete movie">3. Delete movie</button></li>
+        <li><button type="button" class="cli-option" data-cli-choice="4" data-cli-label="4. Update movie">4. Update movie</button></li>
+        <li><button type="button" class="cli-option" data-cli-choice="5" data-cli-label="5. Stats">5. Stats</button></li>
+        <li><button type="button" class="cli-option" data-cli-choice="6" data-cli-label="6. Random movie">6. Random movie</button></li>
+        <li><button type="button" class="cli-option" data-cli-choice="7" data-cli-label="7. Search movie">7. Search movie</button></li>
+        <li><button type="button" class="cli-option" data-cli-choice="8" data-cli-label="8. Movies sorted by rating">8. Movies sorted by rating</button></li>
+        <li><button type="button" class="cli-option" data-cli-choice="9" data-cli-label="9. Movies sorted by year">9. Movies sorted by year</button></li>
+        <li><button type="button" class="cli-option" data-cli-choice="10" data-cli-label="10. Create Rating Histogram">10. Create Rating Histogram</button></li>
+        <li><button type="button" class="cli-option" data-cli-choice="11" data-cli-label="11. Filter movies">11. Filter movies</button></li>
+        <li><button type="button" class="cli-option" data-cli-choice="12" data-cli-label="12. Switch user">12. Switch user</button></li>
+                </ul>
+            </section>
+        </aside>
+        <main class="content">
+            <section class="panel user-select-panel" id="user-select-panel">
+                <h2>Select user</h2>
+                <p>Pick a user tile to display the movie overview.</p>
+                <div class="user-grid">
+                            <button type="button" class="user-card" data-user-id="2" data-user-name="Martin Drexler">Martin Drexler</button>
+        <button type="button" class="user-card user-card selected" data-user-id="1" data-user-name="Default User">Default User</button>
+        <button type="button" class="user-card user-card-new" data-action="create-user">Create new user</button>
+            </div>
+        </section>
+
+        <section class="panel movies-panel is-hidden" id="movies-panel">
+            <h2>Welcome, <span id="selected-user">Default User</span></h2>
+            <ol class="movie-grid">
+                            <li>
+                <div class="movie">
+                    <div class="movie-rating-stars" aria-label="Rating 9.3 out of 10"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="rating-value">9.3</span></div>
+                    <div class="movie-poster-wrap"><a class="movie-poster-link" href="https://www.imdb.com/find/?q=The%20Shawshank%20Redemption&amp;ref_=nv_sr_fn" target="_blank" rel="noopener noreferrer"><img class="movie-poster" src="https://m.media-amazon.com/images/M/MV5BMDAyY2FhYjctNDc5OS00MDNlLThiMGUtY2UxYWVkNGY2ZjljXkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg" alt="The Shawshank Redemption poster" data-note=""/></a></div>
+                    <div class="movie-title">The Shawshank Redemption</div>
+                    <div class="movie-year">1994</div>
+                </div>
+            </li>
+            <li>
+                <div class="movie">
+                    <div class="movie-rating-stars" aria-label="Rating 8.8 out of 10"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star empty">&#9734;</span><span class="rating-value">8.8</span></div>
+                    <div class="movie-poster-wrap"><a class="movie-poster-link" href="https://www.imdb.com/find/?q=Pulp%20Fiction&amp;ref_=nv_sr_fn" target="_blank" rel="noopener noreferrer"><img class="movie-poster" src="https://m.media-amazon.com/images/M/MV5BYTViYTE3ZGQtNDBlMC00ZTAyLTkyODMtZGRiZDg0MjA2YThkXkEyXkFqcGc@._V1_QL75_UY562_CR3,0,380,562_.jpg" alt="Pulp Fiction poster" data-note=""/></a></div>
+                    <div class="movie-title">Pulp Fiction</div>
+                    <div class="movie-year">1994</div>
+                </div>
+            </li>
+            <li>
+                <div class="movie">
+                    <div class="movie-rating-stars" aria-label="Rating 3.6 out of 10"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star empty">&#9734;</span><span class="star empty">&#9734;</span><span class="star empty">&#9734;</span><span class="rating-value">3.6</span></div>
+                    <div class="movie-poster-wrap"><a class="movie-poster-link" href="https://www.imdb.com/find/?q=The%20Room&amp;ref_=nv_sr_fn" target="_blank" rel="noopener noreferrer"><img class="movie-poster" src="https://m.media-amazon.com/images/M/MV5BYmNkMThiODYtZTAzMC00ODJkLTg5MmEtMWIyMGFlZDlkYmNlXkEyXkFqcGc@._V1_SX300.jpg" alt="The Room poster" data-note=""/></a></div>
+                    <div class="movie-title">The Room</div>
+                    <div class="movie-year">2003</div>
+                </div>
+            </li>
+            <li>
+                <div class="movie">
+                    <div class="movie-rating-stars" aria-label="Rating 9.2 out of 10"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="rating-value">9.2</span></div>
+                    <div class="movie-poster-wrap"><a class="movie-poster-link" href="https://www.imdb.com/find/?q=The%20Godfather&amp;ref_=nv_sr_fn" target="_blank" rel="noopener noreferrer"><img class="movie-poster" src="https://m.media-amazon.com/images/M/MV5BNGEwYjgwOGQtYjg5ZS00Njc1LTk2ZGEtM2QwZWQ2NjdhZTE5XkEyXkFqcGc@._V1_QL75_UY562_CR8,0,380,562_.jpg" alt="The Godfather poster" data-note=""/></a></div>
+                    <div class="movie-title">The Godfather</div>
+                    <div class="movie-year">1972</div>
+                </div>
+            </li>
+            <li>
+                <div class="movie">
+                    <div class="movie-rating-stars" aria-label="Rating 9.0 out of 10"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="rating-value">9.0</span></div>
+                    <div class="movie-poster-wrap"><a class="movie-poster-link" href="https://www.imdb.com/find/?q=The%20Godfather%3A%20Part%20II&amp;ref_=nv_sr_fn" target="_blank" rel="noopener noreferrer"><img class="movie-poster" src="https://m.media-amazon.com/images/M/MV5BMDIxMzBlZDktZjMxNy00ZGI4LTgxNDEtYWRlNzRjMjJmOGQ1XkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg" alt="The Godfather: Part II poster" data-note=""/></a></div>
+                    <div class="movie-title">The Godfather: Part II</div>
+                    <div class="movie-year">1974</div>
+                </div>
+            </li>
+            <li>
+                <div class="movie">
+                    <div class="movie-rating-stars" aria-label="Rating 9.1 out of 10"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="rating-value">9.1</span></div>
+                    <div class="movie-poster-wrap"><a class="movie-poster-link" href="https://www.imdb.com/find/?q=The%20Dark%20Knight&amp;ref_=nv_sr_fn" target="_blank" rel="noopener noreferrer"><img class="movie-poster" src="https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_QL75_UX380_CR0,0,380,562_.jpg" alt="The Dark Knight poster" data-note=""/></a></div>
+                    <div class="movie-title">The Dark Knight</div>
+                    <div class="movie-year">2008</div>
+                </div>
+            </li>
+            <li>
+                <div class="movie">
+                    <div class="movie-rating-stars" aria-label="Rating 9.0 out of 10"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="rating-value">9.0</span></div>
+                    <div class="movie-poster-wrap"><a class="movie-poster-link" href="https://www.imdb.com/find/?q=12%20Angry%20Men&amp;ref_=nv_sr_fn" target="_blank" rel="noopener noreferrer"><img class="movie-poster" src="https://m.media-amazon.com/images/M/MV5BYjE4NzdmOTYtYjc5Yi00YzBiLWEzNDEtNTgxZGQ2MWVkN2NiXkEyXkFqcGc@._V1_QL75_UX380_CR0,11,380,562_.jpg" alt="12 Angry Men poster" data-note=""/></a></div>
+                    <div class="movie-title">12 Angry Men</div>
+                    <div class="movie-year">1957</div>
+                </div>
+            </li>
+            <li>
+                <div class="movie">
+                    <div class="movie-rating-stars" aria-label="Rating 7.7 out of 10"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star empty">&#9734;</span><span class="rating-value">7.7</span></div>
+                    <div class="movie-poster-wrap"><a class="movie-poster-link" href="https://www.imdb.com/find/?q=Everything%20Everywhere%20All%20At%20Once&amp;ref_=nv_sr_fn" target="_blank" rel="noopener noreferrer"><img class="movie-poster" src="https://m.media-amazon.com/images/M/MV5BOWNmMzAzZmQtNDQ1NC00Nzk5LTkyMmUtNGI2N2NkOWM4MzEyXkEyXkFqcGc@._V1_QL75_UY562_CR4,0,380,562_.jpg" alt="Everything Everywhere All At Once poster" data-note=""/></a></div>
+                    <div class="movie-title">Everything Everywhere All At Once</div>
+                    <div class="movie-year">2022</div>
+                </div>
+            </li>
+            <li>
+                <div class="movie">
+                    <div class="movie-rating-stars" aria-label="Rating 8.8 out of 10"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star empty">&#9734;</span><span class="rating-value">8.8</span></div>
+                    <div class="movie-poster-wrap"><a class="movie-poster-link" href="https://www.imdb.com/find/?q=Forrest%20Gump&amp;ref_=nv_sr_fn" target="_blank" rel="noopener noreferrer"><img class="movie-poster" src="https://m.media-amazon.com/images/M/MV5BNDYwNzVjMTItZmU5YS00YjQ5LTljYjgtMjY2NDVmYWMyNWFmXkEyXkFqcGc@._V1_QL75_UY562_CR4,0,380,562_.jpg" alt="Forrest Gump poster" data-note=""/></a></div>
+                    <div class="movie-title">Forrest Gump</div>
+                    <div class="movie-year">1994</div>
+                </div>
+            </li>
+            <li>
+                <div class="movie">
+                    <div class="movie-rating-stars" aria-label="Rating 8.7 out of 10"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star empty">&#9734;</span><span class="rating-value">8.7</span></div>
+                    <div class="movie-poster-wrap"><a class="movie-poster-link" href="https://www.imdb.com/find/?q=Star%20Wars%3A%20Episode%20V&amp;ref_=nv_sr_fn" target="_blank" rel="noopener noreferrer"><img class="movie-poster" src="https://m.media-amazon.com/images/M/MV5BMTkxNGFlNDktZmJkNC00MDdhLTg0MTEtZjZiYWI3MGE5NWIwXkEyXkFqcGc@._V1_SX300.jpg" alt="Star Wars: Episode V poster" data-note=""/></a></div>
+                    <div class="movie-title">Star Wars: Episode V</div>
+                    <div class="movie-year">1980</div>
+                </div>
+            </li>
+            <li>
+                <div class="movie">
+                    <div class="movie-rating-stars" aria-label="Rating 7.0 out of 10"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star empty">&#9734;</span><span class="rating-value">7.0</span></div>
+                    <div class="movie-poster-wrap"><a class="movie-poster-link" href="https://www.imdb.com/find/?q=Stargate&amp;ref_=nv_sr_fn" target="_blank" rel="noopener noreferrer"><img class="movie-poster" src="https://m.media-amazon.com/images/M/MV5BNGRmZmNhMTctZTBiMy00ZmJhLWE3MmMtMDNmZWRkZjczMGVkXkEyXkFqcGc@._V1_SX300.jpg" alt="Stargate poster" data-note="My favorite movie!"/></a><span class="movie-note">My favorite movie!</span></div>
+                    <div class="movie-title">Stargate</div>
+                    <div class="movie-year">1994</div>
+                </div>
+            </li>
+            <li>
+                <div class="movie">
+                    <div class="movie-rating-stars" aria-label="Rating 7.9 out of 10"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star empty">&#9734;</span><span class="rating-value">7.9</span></div>
+                    <div class="movie-poster-wrap"><a class="movie-poster-link" href="https://www.imdb.com/find/?q=Avatar&amp;ref_=nv_sr_fn" target="_blank" rel="noopener noreferrer"><img class="movie-poster" src="https://m.media-amazon.com/images/M/MV5BMDEzMmQwZjctZWU2My00MWNlLWE0NjItMDJlYTRlNGJiZjcyXkEyXkFqcGc@._V1_SX300.jpg" alt="Avatar poster" data-note=""/></a></div>
+                    <div class="movie-title">Avatar</div>
+                    <div class="movie-year">2009</div>
+                </div>
+            </li>
+            <li>
+                <div class="movie">
+                    <div class="movie-rating-stars" aria-label="Rating 0.0 out of 10"><span class="star empty">&#9734;</span><span class="star empty">&#9734;</span><span class="star empty">&#9734;</span><span class="star empty">&#9734;</span><span class="star empty">&#9734;</span><span class="rating-value">0.0</span></div>
+                    <div class="movie-poster-wrap"><a class="movie-poster-link" href="https://www.imdb.com/find/?q=Avatar%202%3A%20The%20Way%20of%20Water.%20Poetic%20Version&amp;ref_=nv_sr_fn" target="_blank" rel="noopener noreferrer"><div class="movie-poster" data-note=""></div></a></div>
+                    <div class="movie-title">Avatar 2: The Way of Water. Poetic Version</div>
+                    <div class="movie-year">2022</div>
+                </div>
+            </li>
+            <li>
+                <div class="movie">
+                    <div class="movie-rating-stars" aria-label="Rating 6.4 out of 10"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star empty">&#9734;</span><span class="star empty">&#9734;</span><span class="rating-value">6.4</span></div>
+                    <div class="movie-poster-wrap"><a class="movie-poster-link" href="https://www.imdb.com/find/?q=Greenland&amp;ref_=nv_sr_fn" target="_blank" rel="noopener noreferrer"><img class="movie-poster" src="https://m.media-amazon.com/images/M/MV5BZWZjZGMwNmUtYmRiMS00ODEwLTgyYjQtOGUzMDNhOGU3OGQ0XkEyXkFqcGc@._V1_SX300.jpg" alt="Greenland poster" data-note=""/></a></div>
+                    <div class="movie-title">Greenland</div>
+                    <div class="movie-year">2020</div>
+                </div>
+            </li>
+            <li>
+                <div class="movie">
+                    <div class="movie-rating-stars" aria-label="Rating 8.7 out of 10"><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star filled">&#9733;</span><span class="star empty">&#9734;</span><span class="rating-value">8.7</span></div>
+                    <div class="movie-poster-wrap"><a class="movie-poster-link" href="https://www.imdb.com/title/tt0816692/" target="_blank" rel="noopener noreferrer"><img class="movie-poster" src="https://m.media-amazon.com/images/M/MV5BYzdjMDAxZGItMjI2My00ODA1LTlkNzItOWFjMDU5ZDJlYWY3XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg" alt="Interstellar poster" data-note=""/></a></div>
+                    <div class="movie-title">Interstellar</div>
+                    <div class="movie-year">2014</div>
+                </div>
+            </li>
+            </ol>
+        </section>
+
+        <section class="panel cli-command-panel is-hidden" id="cli-action-input-panel">
+            <div class="cli-command-view" id="cli-command-view">
+                <p class="cli-input-label">Enter choice (0-12):</p>
+                <div class="cli-command-row">
+                    <span class="cli-input-prompt">></span>
+                    <input type="text" id="cli-command-input" class="cli-command-input" placeholder="Type command number" inputmode="numeric" />
+                </div>
+                <button type="button" id="cli-command-submit" class="cli-command-submit">Submit</button>
+            </div>
+
+            <div class="movie-add-view is-hidden" id="movie-add-view">
+                <p class="cli-input-label">Add movie</p>
+                <p class="movie-add-description">The <code>add_movie()</code> function asks for a title and fills year, rating, and poster from OMDb.</p>
+                <label class="movie-add-field" for="movie-name-input">
+                    <span>Movie name</span>
+                    <input type="text" id="movie-name-input" class="movie-add-input" placeholder="e.g. Inception" />
+                </label>
+                <button type="button" id="movie-add-submit" class="movie-add-submit">Add movie</button>
+                <p class="movie-add-status" id="movie-add-status" aria-live="polite"></p>
+            </div>
+
+            <div class="movie-delete-view is-hidden" id="movie-delete-view">
+                <p class="cli-input-label">Delete movie</p>
+                <p class="movie-delete-description">The <code>delete_movie()</code> function asks for a movie name and removes it from the selected user.</p>
+                <label class="movie-delete-field" for="movie-delete-name-input">
+                    <span>Movie name</span>
+                    <input type="text" id="movie-delete-name-input" class="movie-delete-input" placeholder="e.g. The Room" />
+                </label>
+                <button type="button" id="movie-delete-submit" class="movie-delete-submit">Delete movie</button>
+                <p class="movie-delete-status" id="movie-delete-status" aria-live="polite"></p>
+            </div>
+
+            <div class="movie-update-view is-hidden" id="movie-update-view">
+                <p class="cli-input-label">Update movie</p>
+                <p class="movie-update-description">The <code>update_movie()</code> function asks for a movie name and a note for the selected user.</p>
+                <label class="movie-update-field" for="movie-update-name-input">
+                    <span>Movie name</span>
+                    <input type="text" id="movie-update-name-input" class="movie-update-input" placeholder="e.g. Stargate" />
+                </label>
+                <label class="movie-update-field" for="movie-update-note-input">
+                    <span>Movie note</span>
+                    <textarea id="movie-update-note-input" class="movie-update-input movie-update-textarea" placeholder="e.g. My favorite movie!"></textarea>
+                </label>
+                <button type="button" id="movie-update-submit" class="movie-update-submit">Update movie</button>
+                <p class="movie-update-status" id="movie-update-status" aria-live="polite"></p>
+            </div>
+
+            <div class="movie-search-view is-hidden" id="movie-search-view">
+                <p class="cli-input-label">Search movie</p>
+                <p class="movie-search-description">The <code>search_movie()</code> function searches by part of a movie name.</p>
+                <label class="movie-search-field" for="movie-search-input">
+                    <span>Search term</span>
+                    <input type="text" id="movie-search-input" class="movie-search-input" placeholder="e.g. star" />
+                </label>
+                <button type="button" id="movie-search-submit" class="movie-search-submit">Search movie</button>
+                <p class="movie-search-status" id="movie-search-status" aria-live="polite"></p>
+                <div class="movie-search-results" id="movie-search-results"></div>
+            </div>
+
+            <div class="movie-filter-view is-hidden" id="movie-filter-view">
+                <p class="cli-input-label">Filter movies</p>
+                <p class="movie-filter-description">The <code>filter_movies()</code> function can narrow the list by rating and year range.</p>
+                <label class="movie-filter-field" for="movie-filter-min-rating-input">
+                    <span>Minimum rating</span>
+                    <input type="number" id="movie-filter-min-rating-input" class="movie-filter-input" min="0" max="10" step="0.1" placeholder="e.g. 7.5" />
+                </label>
+                <label class="movie-filter-field" for="movie-filter-start-year-input">
+                    <span>Start year</span>
+                    <input type="number" id="movie-filter-start-year-input" class="movie-filter-input" min="1878" max="2100" step="1" placeholder="e.g. 1990" />
+                </label>
+                <label class="movie-filter-field" for="movie-filter-end-year-input">
+                    <span>End year</span>
+                    <input type="number" id="movie-filter-end-year-input" class="movie-filter-input" min="1878" max="2100" step="1" placeholder="e.g. 2005" />
+                </label>
+                <button type="button" id="movie-filter-submit" class="movie-filter-submit">Filter movies</button>
+                <p class="movie-filter-status" id="movie-filter-status" aria-live="polite"></p>
+                <div class="movie-filter-results" id="movie-filter-results"></div>
+            </div>
+        </section>
+
+        <section class="panel action-panel is-hidden" id="action-panel">
+            <h2>Action</h2>
+            <div class="action-grid">
+                <button type="button" class="action-card" data-action-choice="0" data-action-prompt="In der CLI: Wähle im Menü die Eingabe 0 ein, um die App zu beenden.">0. Exit</button>
+<button type="button" class="action-card" data-action-choice="1" data-action-prompt="In der CLI: Gib als nächste Eingabe 1 ein, um die Filme anzuzeigen.">1. List movies</button>
+<button type="button" class="action-card" data-action-choice="2" data-action-prompt="In der CLI: Gib als nächste Eingabe 2 ein, dann &#x27;Enter movie name&#x27;.">2. Add movie</button>
+<button type="button" class="action-card" data-action-choice="3" data-action-prompt="In der CLI: Gib als nächste Eingabe 3 ein, dann &#x27;Enter movie name to delete&#x27;.">3. Delete movie</button>
+<button type="button" class="action-card" data-action-choice="4" data-action-prompt="In der CLI: Gib als nächste Eingabe 4 ein, dann &#x27;Enter movie name&#x27; und &#x27;Enter movie note&#x27;.">4. Update movie</button>
+<button type="button" class="action-card" data-action-choice="5" data-action-prompt="In der CLI: Gib als nächste Eingabe 5 ein, um Statistiken zu sehen.">5. Stats</button>
+<button type="button" class="action-card" data-action-choice="6" data-action-prompt="In der CLI: Gib als nächste Eingabe 6 ein, um einen zufälligen Film zu laden.">6. Random movie</button>
+<button type="button" class="action-card" data-action-choice="7" data-action-prompt="In der CLI: Gib als nächste Eingabe 7 ein, dann &#x27;Enter part of movie name&#x27;.">7. Search movie</button>
+<button type="button" class="action-card" data-action-choice="8" data-action-prompt="In der CLI: Gib als nächste Eingabe 8 ein, um nach Bewertung zu sortieren.">8. Movies sorted by rating</button>
+<button type="button" class="action-card" data-action-choice="9" data-action-prompt="In der CLI: Gib als nächste Eingabe 9 ein, um nach Jahr zu sortieren.">9. Movies sorted by year</button>
+<button type="button" class="action-card" data-action-choice="10" data-action-prompt="In der CLI: Gib als nächste Eingabe 10 ein, um ein Bewertungs-Histogramm zu erstellen.">10. Create Rating Histogram</button>
+<button type="button" class="action-card" data-action-choice="11" data-action-prompt="In der CLI: Gib als nächste Eingabe 11 ein, dann Filterwerte eingeben.">11. Filter movies</button>
+<button type="button" class="action-card" data-action-choice="12" data-action-prompt="In der CLI: Gib als nächste Eingabe 12 ein, um Nutzer zu wechseln.">12. Switch user</button>
+            </div>
+        </section>
+
+        <section class="panel stats-panel is-hidden" id="stats-panel">
+            <h2>Statistics</h2>
+            <ul class="stats-list" id="stats-list"></ul>
+        </section>
+
+        <section class="panel random-panel is-hidden" id="random-panel">
+            <h2>Random Movie</h2>
+            <div class="random-result" id="random-result"></div>
+        </section>
+    </main>
+</div>
+
+<script src="Movie_SQL_HTML_API/HTML/movie_app.js"></script>
+<script>
+    (function () {
+      if (window.__MOVIE_APP_EXTERNAL__) {
+        return;
+      }
+
+      const userCards = document.querySelectorAll('[data-user-id], [data-action="create-user"]');
+      const cliItems = document.querySelectorAll('[data-cli-choice]');
+      const appLayout = document.querySelector('.app-layout');
+      const userSelectPanel = document.getElementById('user-select-panel');
+      const moviesPanel = document.getElementById('movies-panel');
+      const actionPanel = document.getElementById('action-panel');
+      const actionGrid = actionPanel.querySelector('.action-grid');
+      const actionGridTemplate = actionGrid.innerHTML;
+      const statsPanel = document.getElementById('stats-panel');
+      const statsList = document.getElementById('stats-list');
+      const randomPanel = document.getElementById('random-panel');
+      const randomResult = document.getElementById('random-result');
+      let actionCards = [];
+      const commandPanel = document.getElementById('cli-action-input-panel');
+      const commandView = document.getElementById('cli-command-view');
+      const movieAddView = document.getElementById('movie-add-view');
+      const movieDeleteView = document.getElementById('movie-delete-view');
+      const movieUpdateView = document.getElementById('movie-update-view');
+      const movieSearchView = document.getElementById('movie-search-view');
+      const movieFilterView = document.getElementById('movie-filter-view');
+      const commandInput = document.getElementById('cli-command-input');
+      const commandSubmit = document.getElementById('cli-command-submit');
+      const movieNameInput = document.getElementById('movie-name-input');
+      const movieAddSubmit = document.getElementById('movie-add-submit');
+      const movieAddStatus = document.getElementById('movie-add-status');
+      const movieDeleteNameInput = document.getElementById('movie-delete-name-input');
+      const movieDeleteSubmit = document.getElementById('movie-delete-submit');
+      const movieDeleteStatus = document.getElementById('movie-delete-status');
+      const movieUpdateNameInput = document.getElementById('movie-update-name-input');
+      const movieUpdateNoteInput = document.getElementById('movie-update-note-input');
+      const movieUpdateSubmit = document.getElementById('movie-update-submit');
+      const movieUpdateStatus = document.getElementById('movie-update-status');
+      const movieSearchInput = document.getElementById('movie-search-input');
+      const movieSearchSubmit = document.getElementById('movie-search-submit');
+      const movieSearchStatus = document.getElementById('movie-search-status');
+      const movieSearchResults = document.getElementById('movie-search-results');
+      const movieFilterMinRatingInput = document.getElementById('movie-filter-min-rating-input');
+      const movieFilterStartYearInput = document.getElementById('movie-filter-start-year-input');
+      const movieFilterEndYearInput = document.getElementById('movie-filter-end-year-input');
+      const movieFilterSubmit = document.getElementById('movie-filter-submit');
+      const movieFilterStatus = document.getElementById('movie-filter-status');
+      const movieFilterResults = document.getElementById('movie-filter-results');
+      const selectedUserName = document.getElementById('selected-user');
+      const userSelectPrompt = document.querySelector('.user-select-panel p');
+      const createUserFromPrompt = async () => {
+        const firstNameInput = window.prompt('Enter new user first name:');
+        if (firstNameInput === null) {
+          return;
+        }
+
+        const firstName = firstNameInput.trim();
+        if (!firstName) {
+          window.alert('User name cannot be empty.');
+          return;
+        }
+
+        const lastNameInput = window.prompt('Enter new user last name (optional):');
+        if (lastNameInput === null) {
+          return;
+        }
+
+        const lastName = lastNameInput.trim();
+        const displayName = lastName ? `${firstName} ${lastName}` : firstName;
+        selectedUserName.textContent = displayName;
+        userSelectPrompt.textContent = `Created: ${displayName}`;
+      };
+
+      const hideActionCards = () => {
+        actionCards.forEach((actionCard) => {
+          actionCard.classList.remove('action-card--active');
+          actionCard.classList.remove('selected');
+          actionCard.classList.remove('is-visible');
+          actionCard.classList.add('is-hidden');
+        });
+      };
+
+      const showCommandPanel = () => {
+        appLayout.classList.remove('app-layout--no-command-panel');
+        commandPanel.hidden = false;
+        commandPanel.style.display = '';
+        commandPanel.classList.remove('is-hidden');
+      };
+
+      const hideCommandPanel = () => {
+        appLayout.classList.add('app-layout--no-command-panel');
+        commandPanel.hidden = true;
+        commandPanel.style.display = 'none';
+        commandPanel.classList.add('is-hidden');
+      };
+
+      const refreshActionCards = () => {
+        actionCards = Array.from(actionGrid.querySelectorAll('.action-card'));
+      };
+
+      const restoreActionGrid = () => {
+        actionGrid.innerHTML = actionGridTemplate;
+        actionGrid.classList.remove('action-grid--detail');
+        refreshActionCards();
+      };
+
+      const setDetailActionGrid = () => {
+        actionGrid.classList.add('action-grid--detail');
+      };
+
+      const hideFilterView = () => {
+        movieFilterView.classList.add('is-hidden');
+        movieFilterStatus.textContent = '';
+      };
+
+      const hideStatsView = () => {
+        statsPanel.classList.add('is-hidden');
+      };
+
+      const hideRandomView = () => {
+        randomPanel.classList.add('is-hidden');
+      };
+
+      const hideSearchView = () => {
+        movieSearchView.classList.add('is-hidden');
+        movieSearchStatus.textContent = '';
+        movieSearchResults.replaceChildren();
+      };
+
+      const showCliMenu = () => {
+        appLayout.classList.remove('app-layout--menu-hidden');
+      };
+
+      const showStartPage = () => {
+        appLayout.classList.add('app-layout--menu-hidden');
+        appLayout.classList.remove('app-layout--no-command-panel');
+        userSelectPanel.classList.remove('is-hidden');
+        selectedUserName.textContent = 'Default User';
+        userSelectPrompt.textContent = 'Pick a user tile to display the movie overview.';
+        moviesPanel.classList.add('is-hidden');
+        actionPanel.classList.add('is-hidden');
+        commandPanel.classList.add('is-hidden');
+        commandPanel.hidden = true;
+        commandPanel.style.display = 'none';
+        hideStatsView();
+        hideRandomView();
+        hideSearchView();
+        hideFilterView();
+        restoreActionGrid();
+        hideActionCards();
+        commandInput.value = '';
+      };
+
+      const showMovieList = () => {
+        restoreActionGrid();
+        moviesPanel.classList.remove('is-hidden');
+        actionPanel.classList.add('is-hidden');
+        hideStatsView();
+        hideRandomView();
+        hideSearchView();
+        commandPanel.classList.add('is-hidden');
+        hideActionCards();
+      };
+
+      const buildStats = () => {
+        const movieCards = Array.from(document.querySelectorAll('.movie-grid .movie'));
+
+        if (!movieCards.length) {
+          return null;
+        }
+
+        const stats = movieCards
+          .map((movieCard) => {
+            const title = movieCard.querySelector('.movie-title')?.textContent?.trim() || '';
+            const ratingText = movieCard.querySelector('.rating-value')?.textContent?.trim() || '0';
+            const rating = Number.parseFloat(ratingText);
+
+            return {
+              title,
+              rating: Number.isFinite(rating) ? rating : 0,
+            };
+          })
+          .filter((movie) => movie.title);
+
+        if (!stats.length) {
+          return null;
+        }
+
+        const ratings = stats.map((movie) => movie.rating);
+        const sortedRatings = [...ratings].sort((a, b) => a - b);
+        const averageRating = ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length;
+        const medianRating = sortedRatings.length % 2 === 1
+          ? sortedRatings[Math.floor(sortedRatings.length / 2)]
+          : (sortedRatings[sortedRatings.length / 2 - 1] + sortedRatings[sortedRatings.length / 2]) / 2;
+        const bestMovie = stats.reduce((best, current) => (current.rating > best.rating ? current : best));
+        const worstMovie = stats.reduce((worst, current) => (current.rating < worst.rating ? current : worst));
+
+        return {
+          count: stats.length,
+          averageRating,
+          medianRating,
+          bestMovie,
+          worstMovie,
+        };
+      };
+
+      const renderStatsView = () => {
+        const stats = buildStats();
+
+        statsList.replaceChildren();
+
+        if (!stats) {
+          const emptyItem = document.createElement('li');
+          emptyItem.innerHTML = '<span class="stats-label">No movies</span><span class="stats-value">No statistics available</span>';
+          statsList.appendChild(emptyItem);
+          return;
+        }
+
+        const rows = [
+          ['Movie count', String(stats.count)],
+          ['Average rating', stats.averageRating.toFixed(1)],
+          ['Median rating', stats.medianRating.toFixed(1)],
+          ['Best movie', `${stats.bestMovie.title} (${stats.bestMovie.rating.toFixed(1)})`],
+          ['Worst movie', `${stats.worstMovie.title} (${stats.worstMovie.rating.toFixed(1)})`],
+        ];
+
+        rows.forEach(([label, value]) => {
+          const item = document.createElement('li');
+          const labelSpan = document.createElement('span');
+          labelSpan.className = 'stats-label';
+          labelSpan.textContent = label;
+          const valueSpan = document.createElement('span');
+          valueSpan.className = 'stats-value';
+          valueSpan.textContent = value;
+          item.append(labelSpan, valueSpan);
+          statsList.appendChild(item);
+        });
+      };
+
+      const showStatsView = () => {
+        renderStatsView();
+        moviesPanel.classList.add('is-hidden');
+        actionPanel.classList.add('is-hidden');
+        commandPanel.classList.add('is-hidden');
+        hideSearchView();
+        hideRandomView();
+        statsPanel.classList.remove('is-hidden');
+        hideActionCards();
+      };
+
+      const renderRandomMovieView = () => {
+        const movieCards = Array.from(document.querySelectorAll('.movie-grid .movie'));
+
+        randomResult.replaceChildren();
+
+        if (!movieCards.length) {
+          const emptyState = document.createElement('p');
+          emptyState.className = 'random-empty';
+          emptyState.textContent = 'No movies available.';
+          randomResult.appendChild(emptyState);
+          return;
+        }
+
+        const randomCard = movieCards[Math.floor(Math.random() * movieCards.length)];
+        const title = randomCard.querySelector('.movie-title')?.textContent?.trim() || 'Unknown';
+        const year = randomCard.querySelector('.movie-year')?.textContent?.trim() || 'Unknown';
+        const rating = randomCard.querySelector('.rating-value')?.textContent?.trim() || '0';
+        const poster = randomCard.querySelector('.movie-poster')?.getAttribute('src') || '';
+        const posterAlt = randomCard.querySelector('.movie-poster')?.getAttribute('alt') || `${title} poster`;
+
+        const card = document.createElement('div');
+        card.className = 'random-card';
+
+        if (poster) {
+          const img = document.createElement('img');
+          img.className = 'random-poster';
+          img.src = poster;
+          img.alt = posterAlt;
+          card.appendChild(img);
+        }
+
+        const titleEl = document.createElement('h3');
+        titleEl.className = 'random-title';
+        titleEl.textContent = title;
+
+        const metaEl = document.createElement('p');
+        metaEl.className = 'random-meta';
+        metaEl.textContent = `${year} | Rating ${rating}`;
+
+        const noteEl = document.createElement('p');
+        noteEl.className = 'random-note';
+        noteEl.textContent = `Your movie for tonight: ${title}.`;
+
+        card.append(titleEl, metaEl, noteEl);
+        randomResult.appendChild(card);
+      };
+
+      const showRandomMovieView = () => {
+        renderRandomMovieView();
+        moviesPanel.classList.add('is-hidden');
+        actionPanel.classList.add('is-hidden');
+        commandPanel.classList.add('is-hidden');
+        hideSearchView();
+        hideStatsView();
+        randomPanel.classList.remove('is-hidden');
+        hideActionCards();
+      };
+
+      const showSearchView = () => {
+        showCommandPanel();
+        commandPanel.classList.remove('is-hidden');
+        commandView.classList.add('is-hidden');
+        movieAddView.classList.add('is-hidden');
+        movieDeleteView.classList.add('is-hidden');
+        movieUpdateView.classList.add('is-hidden');
+        movieSearchView.classList.remove('is-hidden');
+        hideFilterView();
+        hideStatsView();
+        hideRandomView();
+        movieAddStatus.textContent = '';
+        movieDeleteStatus.textContent = '';
+        movieUpdateStatus.textContent = '';
+        movieSearchStatus.textContent = '';
+        window.setTimeout(() => movieSearchInput.focus(), 0);
+      };
+
+      const renderSearchResults = (term) => {
+        const query = String(term ?? '').trim().toLowerCase();
+        const sourceItems = Array.from(moviesPanel.querySelectorAll('.movie-grid li'));
+
+        movieSearchResults.replaceChildren();
+
+        const header = document.createElement('p');
+        header.className = 'search-results-summary';
+
+        if (!query) {
+          header.textContent = 'Please enter a movie name.';
+          movieSearchResults.appendChild(header);
+          return false;
+        }
+
+        const matches = sourceItems.filter((item) => {
+          const title = item.querySelector('.movie-title')?.textContent?.trim().toLowerCase() || '';
+          return title.includes(query);
+        });
+
+        header.textContent = matches.length
+          ? `Found ${matches.length} match${matches.length === 1 ? '' : 'es'} for "${term.trim()}".`
+          : `No movies found for "${term.trim()}".`;
+        movieSearchResults.appendChild(header);
+
+        if (!matches.length) {
+          return true;
+        }
+
+        const resultsList = document.createElement('ol');
+        resultsList.className = 'movie-grid movie-grid--search-results';
+
+        matches.forEach((match) => {
+          resultsList.appendChild(match.cloneNode(true));
+        });
+
+        movieSearchResults.appendChild(resultsList);
+        return true;
+      };
+
+      const showFilterView = () => {
+        showCommandPanel();
+        commandPanel.classList.remove('is-hidden');
+        commandView.classList.add('is-hidden');
+        movieAddView.classList.add('is-hidden');
+        movieDeleteView.classList.add('is-hidden');
+        movieUpdateView.classList.add('is-hidden');
+        movieSearchView.classList.add('is-hidden');
+        movieFilterView.classList.remove('is-hidden');
+        hideStatsView();
+        hideRandomView();
+        movieAddStatus.textContent = '';
+        movieDeleteStatus.textContent = '';
+        movieUpdateStatus.textContent = '';
+        movieSearchStatus.textContent = '';
+        movieFilterStatus.textContent = '';
+        movieFilterResults.replaceChildren();
+        window.setTimeout(() => movieFilterMinRatingInput.focus(), 0);
+      };
+
+      const renderFilterResults = () => {
+        const minRatingText = movieFilterMinRatingInput.value.trim();
+        const startYearText = movieFilterStartYearInput.value.trim();
+        const endYearText = movieFilterEndYearInput.value.trim();
+        const minRating = minRatingText ? Number.parseFloat(minRatingText) : null;
+        const startYear = startYearText ? Number.parseInt(startYearText, 10) : null;
+        const endYear = endYearText ? Number.parseInt(endYearText, 10) : null;
+        const sourceItems = Array.from(moviesPanel.querySelectorAll('.movie-grid li'));
+        movieFilterResults.replaceChildren();
+
+        const header = document.createElement('p');
+        header.className = 'search-results-summary';
+
+        if ((minRatingText && !Number.isFinite(minRating)) || (startYearText && !Number.isInteger(startYear)) || (endYearText && !Number.isInteger(endYear))) {
+          header.textContent = 'Please enter valid filter values.';
+          movieFilterResults.appendChild(header);
+          return false;
+        }
+
+        const matches = sourceItems.filter((item) => {
+          const title = item.querySelector('.movie-title')?.textContent?.trim() || '';
+          const ratingText = item.querySelector('.rating-value')?.textContent?.trim() || '0';
+          const yearText = item.querySelector('.movie-year')?.textContent?.trim() || '0';
+          const rating = Number.parseFloat(ratingText);
+          const year = Number.parseInt(yearText, 10);
+
+          if (minRating !== null && rating < minRating) {
+            return false;
+          }
+
+          if (startYear !== null && year < startYear) {
+            return false;
+          }
+
+          if (endYear !== null && year > endYear) {
+            return false;
+          }
+
+          return Boolean(title);
+        });
+
+        const filterSummaryParts = [];
+        if (minRatingText) {
+          filterSummaryParts.push(`rating >= ${minRatingText}`);
+        }
+        if (startYearText) {
+          filterSummaryParts.push(`year >= ${startYearText}`);
+        }
+        if (endYearText) {
+          filterSummaryParts.push(`year <= ${endYearText}`);
+        }
+
+        header.textContent = matches.length
+          ? `Found ${matches.length} movie${matches.length === 1 ? '' : 's'}${filterSummaryParts.length ? ` for ${filterSummaryParts.join(', ')}` : ''}.`
+          : 'No movies found matching the criteria.';
+        movieFilterResults.appendChild(header);
+
+        if (!matches.length) {
+          return true;
+        }
+
+        const resultsList = document.createElement('ol');
+        resultsList.className = 'movie-grid movie-grid--search-results';
+
+        matches.forEach((match) => {
+          resultsList.appendChild(match.cloneNode(true));
+        });
+
+        movieFilterResults.appendChild(resultsList);
+        return true;
+      };
+
+      const renderSortedMovieResults = (headline, compareFn) => {
+        const sourceItems = Array.from(moviesPanel.querySelectorAll('.movie-grid li'));
+
+        restoreActionGrid();
+        setDetailActionGrid();
+        actionGrid.replaceChildren();
+
+        const header = document.createElement('p');
+        header.className = 'search-results-summary';
+
+        if (!sourceItems.length) {
+          header.textContent = 'No movies available.';
+          actionGrid.appendChild(header);
+          return false;
+        }
+
+        const sortedItems = sourceItems
+          .map((item, index) => {
+            const title = item.querySelector('.movie-title')?.textContent?.trim() || '';
+            const yearText = item.querySelector('.movie-year')?.textContent?.trim() || '0';
+            const ratingText = item.querySelector('.rating-value')?.textContent?.trim() || '0';
+
+            return {
+              item,
+              index,
+              title,
+              year: Number.parseInt(yearText, 10) || 0,
+              rating: Number.parseFloat(ratingText) || 0,
+            };
+          })
+          .sort(compareFn)
+          .map(({ item }) => item.cloneNode(true));
+
+        header.textContent = headline;
+        actionGrid.appendChild(header);
+
+        const resultsList = document.createElement('ol');
+        resultsList.className = 'movie-grid movie-grid--search-results';
+
+        sortedItems.forEach((item) => {
+          resultsList.appendChild(item);
+        });
+
+        actionGrid.appendChild(resultsList);
+        return true;
+      };
+
+      const renderRatingHistogram = () => {
+        const sourceItems = Array.from(moviesPanel.querySelectorAll('.movie-grid li'));
+        const movies = sourceItems
+          .map((item) => {
+            const title = item.querySelector('.movie-title')?.textContent?.trim() || '';
+            const ratingText = item.querySelector('.rating-value')?.textContent?.trim() || '0';
+            const rating = Number.parseFloat(ratingText);
+
+            return {
+              title,
+              rating: Number.isFinite(rating) ? rating : 0,
+            };
+          })
+          .filter((movie) => movie.title)
+          .sort((a, b) => {
+            if (b.rating !== a.rating) {
+              return b.rating - a.rating;
+            }
+
+            return a.title.localeCompare(b.title);
+          });
+
+        restoreActionGrid();
+        setDetailActionGrid();
+        actionGrid.replaceChildren();
+
+        const header = document.createElement('p');
+        header.className = 'search-results-summary';
+        header.textContent = movies.length
+          ? 'Movie ratings histogram (sorted by rating).'
+          : 'No movies available.';
+        actionGrid.appendChild(header);
+
+        if (!movies.length) {
+          return false;
+        }
+
+        const chartWrap = document.createElement('div');
+        chartWrap.className = 'rating-histogram-wrap';
+
+        const svgNS = 'http://www.w3.org/2000/svg';
+        const width = 960;
+        const height = 360;
+        const margin = { top: 28, right: 20, bottom: 92, left: 48 };
+        const plotWidth = width - margin.left - margin.right;
+        const plotHeight = height - margin.top - margin.bottom;
+        const barGap = 8;
+        const barWidth = Math.max(14, Math.floor((plotWidth - barGap * (movies.length - 1)) / movies.length));
+        const baselineY = margin.top + plotHeight;
+
+        const svg = document.createElementNS(svgNS, 'svg');
+        svg.setAttribute('class', 'rating-histogram-svg');
+        svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+        svg.setAttribute('role', 'img');
+        svg.setAttribute('aria-label', 'Movie ratings bar chart');
+
+        const background = document.createElementNS(svgNS, 'rect');
+        background.setAttribute('x', '0');
+        background.setAttribute('y', '0');
+        background.setAttribute('width', String(width));
+        background.setAttribute('height', String(height));
+        background.setAttribute('rx', '18');
+        background.setAttribute('fill', '#f6fbf7');
+        svg.appendChild(background);
+
+        const title = document.createElementNS(svgNS, 'text');
+        title.setAttribute('x', String(margin.left));
+        title.setAttribute('y', '20');
+        title.setAttribute('class', 'rating-histogram-title');
+        title.textContent = 'Ratings by movie';
+        svg.appendChild(title);
+
+        const axisLine = document.createElementNS(svgNS, 'line');
+        axisLine.setAttribute('x1', String(margin.left));
+        axisLine.setAttribute('y1', String(baselineY));
+        axisLine.setAttribute('x2', String(width - margin.right));
+        axisLine.setAttribute('y2', String(baselineY));
+        axisLine.setAttribute('class', 'rating-histogram-axis');
+        svg.appendChild(axisLine);
+
+        const maxRating = 10;
+
+        movies.forEach((movie, index) => {
+          const barHeight = Math.max(2, Math.round((movie.rating / maxRating) * plotHeight));
+          const x = margin.left + index * (barWidth + barGap);
+          const y = baselineY - barHeight;
+          const label = movie.title.length > 18 ? `${movie.title.slice(0, 17)}…` : movie.title;
+
+          const bar = document.createElementNS(svgNS, 'rect');
+          bar.setAttribute('x', String(x));
+          bar.setAttribute('y', String(y));
+          bar.setAttribute('width', String(barWidth));
+          bar.setAttribute('height', String(barHeight));
+          bar.setAttribute('rx', '6');
+          bar.setAttribute('class', 'rating-histogram-bar');
+          svg.appendChild(bar);
+
+          const value = document.createElementNS(svgNS, 'text');
+          value.setAttribute('x', String(x + barWidth / 2));
+          value.setAttribute('y', String(y - 8));
+          value.setAttribute('text-anchor', 'middle');
+          value.setAttribute('class', 'rating-histogram-value');
+          value.textContent = movie.rating.toFixed(1);
+          svg.appendChild(value);
+
+          const labelText = document.createElementNS(svgNS, 'text');
+          labelText.setAttribute('x', String(x + barWidth / 2));
+          labelText.setAttribute('y', String(baselineY + 22));
+          labelText.setAttribute('text-anchor', 'end');
+          labelText.setAttribute('transform', `rotate(-45 ${x + barWidth / 2} ${baselineY + 22})`);
+          labelText.setAttribute('class', 'rating-histogram-label');
+          labelText.textContent = label;
+          svg.appendChild(labelText);
+        });
+
+        chartWrap.appendChild(svg);
+        actionGrid.appendChild(chartWrap);
+        return true;
+      };
+
+      const showCommandView = () => {
+        showCommandPanel();
+        commandView.classList.remove('is-hidden');
+        movieAddView.classList.add('is-hidden');
+        movieDeleteView.classList.add('is-hidden');
+        movieUpdateView.classList.add('is-hidden');
+        hideSearchView();
+        hideFilterView();
+        hideStatsView();
+        hideRandomView();
+        movieAddStatus.textContent = '';
+        movieDeleteStatus.textContent = '';
+        movieUpdateStatus.textContent = '';
+      };
+
+      const showAddMovieView = () => {
+        showCommandPanel();
+        commandPanel.classList.remove('is-hidden');
+        commandView.classList.add('is-hidden');
+        movieAddView.classList.remove('is-hidden');
+        movieDeleteView.classList.add('is-hidden');
+        movieUpdateView.classList.add('is-hidden');
+        hideSearchView();
+        hideFilterView();
+        hideStatsView();
+        hideRandomView();
+        movieAddStatus.textContent = '';
+        movieDeleteStatus.textContent = '';
+        movieUpdateStatus.textContent = '';
+        window.setTimeout(() => movieNameInput.focus(), 0);
+      };
+
+      const showDeleteMovieView = () => {
+        showCommandPanel();
+        commandPanel.classList.remove('is-hidden');
+        commandView.classList.add('is-hidden');
+        movieAddView.classList.add('is-hidden');
+        movieDeleteView.classList.remove('is-hidden');
+        movieUpdateView.classList.add('is-hidden');
+        hideSearchView();
+        hideStatsView();
+        hideRandomView();
+        movieAddStatus.textContent = '';
+        movieDeleteStatus.textContent = '';
+        movieUpdateStatus.textContent = '';
+        window.setTimeout(() => movieDeleteNameInput.focus(), 0);
+      };
+
+      const showUpdateMovieView = () => {
+        showCommandPanel();
+        commandPanel.classList.remove('is-hidden');
+        commandView.classList.add('is-hidden');
+        movieAddView.classList.add('is-hidden');
+        movieDeleteView.classList.add('is-hidden');
+        movieUpdateView.classList.remove('is-hidden');
+        hideSearchView();
+        hideFilterView();
+        hideStatsView();
+        hideRandomView();
+        movieAddStatus.textContent = '';
+        movieDeleteStatus.textContent = '';
+        movieUpdateStatus.textContent = '';
+        window.setTimeout(() => movieUpdateNameInput.focus(), 0);
+      };
+
+      userCards.forEach((card) => {
+        card.addEventListener('click', async () => {
+          if (card.dataset.action === 'create-user') {
+            await createUserFromPrompt();
+            return;
+          }
+
+          const targetName = card.dataset.userName || 'Selected User';
+          selectedUserName.textContent = targetName;
+          userSelectPrompt.textContent = `Selected: ${targetName}`;
+          showCliMenu();
+          userSelectPanel.classList.add('is-hidden');
+          restoreActionGrid();
+          moviesPanel.classList.remove('is-hidden');
+          hideStatsView();
+          hideRandomView();
+          hideSearchView();
+          hideFilterView();
+          actionPanel.classList.add('is-hidden');
+          commandPanel.classList.add('is-hidden');
+          hideActionCards();
+        });
+      });
+
+      const runCliChoice = (choice) => {
+        const chosenChoice = String(choice ?? '').trim();
+        restoreActionGrid();
+        if (!chosenChoice) {
+          commandInput.focus();
+          return;
+        }
+
+        if (chosenChoice === '1') {
+          showMovieList();
+          return;
+        }
+
+        if (chosenChoice === '2') {
+          moviesPanel.classList.add('is-hidden');
+          actionPanel.classList.add('is-hidden');
+          hideActionCards();
+          showAddMovieView();
+          return;
+        }
+
+        if (chosenChoice === '3') {
+          moviesPanel.classList.add('is-hidden');
+          actionPanel.classList.add('is-hidden');
+          hideActionCards();
+          showDeleteMovieView();
+          return;
+        }
+
+        if (chosenChoice === '4') {
+          moviesPanel.classList.add('is-hidden');
+          actionPanel.classList.add('is-hidden');
+          hideActionCards();
+          showUpdateMovieView();
+          return;
+        }
+
+        if (chosenChoice === '7') {
+          moviesPanel.classList.add('is-hidden');
+          actionPanel.classList.add('is-hidden');
+          hideActionCards();
+          showSearchView();
+          return;
+        }
+
+        if (chosenChoice === '8') {
+          moviesPanel.classList.add('is-hidden');
+          actionPanel.classList.remove('is-hidden');
+          showCommandView();
+          hideCommandPanel();
+          renderSortedMovieResults('Movies sorted by rating (highest first).', (a, b) => {
+            if (b.rating !== a.rating) {
+              return b.rating - a.rating;
+            }
+
+            return a.title.localeCompare(b.title);
+          });
+          return;
+        }
+
+        if (chosenChoice === '9') {
+          moviesPanel.classList.add('is-hidden');
+          actionPanel.classList.remove('is-hidden');
+          showCommandView();
+          hideCommandPanel();
+          renderSortedMovieResults('Movies sorted by year (newest first).', (a, b) => {
+            if (b.year !== a.year) {
+              return b.year - a.year;
+            }
+
+            return a.title.localeCompare(b.title);
+          });
+          return;
+        }
+
+        if (chosenChoice === '10') {
+          moviesPanel.classList.add('is-hidden');
+          actionPanel.classList.remove('is-hidden');
+          showCommandView();
+          hideCommandPanel();
+          renderRatingHistogram();
+          return;
+        }
+
+        if (chosenChoice === '11') {
+          actionCards.forEach((actionCard) => {
+            const isSelected = actionCard.dataset.actionChoice === chosenChoice;
+            actionCard.classList.toggle('is-hidden', !isSelected);
+            actionCard.classList.toggle('is-visible', isSelected);
+            actionCard.classList.toggle('action-card--active', isSelected);
+            actionCard.classList.toggle('selected', isSelected);
+          });
+
+          moviesPanel.classList.add('is-hidden');
+          actionPanel.classList.add('is-hidden');
+          showFilterView();
+          return;
+        }
+
+        if (chosenChoice === '12') {
+          showStartPage();
+          return;
+        }
+
+        if (chosenChoice === '5') {
+          showStatsView();
+          return;
+        }
+
+        if (chosenChoice === '6') {
+          showRandomMovieView();
+          return;
+        }
+
+        actionCards.forEach((actionCard) => {
+          const isSelected = actionCard.dataset.actionChoice === chosenChoice;
+          actionCard.classList.toggle('is-hidden', !isSelected);
+          actionCard.classList.toggle('is-visible', isSelected);
+          actionCard.classList.toggle('action-card--active', isSelected);
+          actionCard.classList.toggle('selected', isSelected);
+        });
+
+        moviesPanel.classList.add('is-hidden');
+        actionPanel.classList.remove('is-hidden');
+        showCommandView();
+      };
+
+      cliItems.forEach((cliItem) => {
+        cliItem.addEventListener('click', () => {
+          const choice = cliItem.dataset.cliChoice;
+          commandInput.value = choice;
+          runCliChoice(choice);
+        });
+      });
+
+      const submitCliChoice = () => {
+        runCliChoice(commandInput.value);
+      };
+
+      commandSubmit.addEventListener('click', submitCliChoice);
+      commandInput.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+          submitCliChoice();
+        }
+      });
+
+      movieAddSubmit.addEventListener('click', () => {
+        const movieName = movieNameInput.value.trim();
+        if (!movieName) {
+          movieAddStatus.textContent = 'Please enter a movie name.';
+          movieNameInput.focus();
+          return;
+        }
+
+        movieAddStatus.textContent = `Ready to add "${movieName}" with add_movie().`;
+      });
+
+      movieNameInput.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+          movieAddSubmit.click();
+        }
+      });
+
+      movieDeleteSubmit.addEventListener('click', () => {
+        const movieName = movieDeleteNameInput.value.trim();
+        if (!movieName) {
+          movieDeleteStatus.textContent = 'Please enter a movie name.';
+          movieDeleteNameInput.focus();
+          return;
+        }
+
+        movieDeleteStatus.textContent = `Ready to delete "${movieName}" with delete_movie().`;
+      });
+
+      movieDeleteNameInput.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+          movieDeleteSubmit.click();
+        }
+      });
+
+      movieUpdateSubmit.addEventListener('click', () => {
+        const movieName = movieUpdateNameInput.value.trim();
+        const movieNote = movieUpdateNoteInput.value.trim();
+
+        if (!movieName) {
+          movieUpdateStatus.textContent = 'Please enter a movie name.';
+          movieUpdateNameInput.focus();
+          return;
+        }
+
+        if (!movieNote) {
+          movieUpdateStatus.textContent = 'Please enter a movie note.';
+          movieUpdateNoteInput.focus();
+          return;
+        }
+
+        movieUpdateStatus.textContent = `Ready to update "${movieName}" with update_movie().`;
+      });
+
+      movieUpdateNameInput.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+          movieUpdateNoteInput.focus();
+        }
+      });
+
+      movieUpdateNoteInput.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter' && event.ctrlKey) {
+          movieUpdateSubmit.click();
+        }
+      });
+
+      movieSearchSubmit.addEventListener('click', () => {
+        const searchTerm = movieSearchInput.value.trim();
+        const hasResults = renderSearchResults(searchTerm);
+
+        if (!searchTerm) {
+          movieSearchStatus.textContent = 'Please enter a search term.';
+          movieSearchInput.focus();
+          return;
+        }
+
+        movieSearchStatus.textContent = hasResults
+          ? `Showing results for "${searchTerm}".`
+          : `No movies found for "${searchTerm}".`;
+        commandPanel.classList.remove('is-hidden');
+        movieSearchView.classList.remove('is-hidden');
+        actionPanel.classList.add('is-hidden');
+        moviesPanel.classList.add('is-hidden');
+      });
+
+      movieFilterSubmit.addEventListener('click', () => {
+        const hasResults = renderFilterResults();
+
+        if (!hasResults) {
+          movieFilterStatus.textContent = 'Please enter valid filter values.';
+          return;
+        }
+
+        movieFilterStatus.textContent = 'Filter applied.';
+        commandPanel.classList.remove('is-hidden');
+        movieFilterView.classList.remove('is-hidden');
+        actionPanel.classList.remove('is-hidden');
+        moviesPanel.classList.add('is-hidden');
+      });
+
+      movieSearchInput.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+          movieSearchSubmit.click();
+        }
+      });
+
+      [movieFilterMinRatingInput, movieFilterStartYearInput, movieFilterEndYearInput].forEach((input) => {
+        input.addEventListener('keyup', (event) => {
+          if (event.key === 'Enter') {
+            movieFilterSubmit.click();
+          }
+        });
+      });
+
+      commandInput.setAttribute('aria-label', 'Command input');
+      showCommandView();
+      hideActionCards();
+      restoreActionGrid();
+    })();
+</script>
+</body>
+</html>
