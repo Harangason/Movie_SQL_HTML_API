@@ -390,7 +390,6 @@ def _build_user_cards(active_user_id: int, users: dict[int, dict[str, str | None
 def _build_cli_sidebar() -> str:
     """Build a static CLI-style menu block for the HTML left column."""
     options = [
-        ("0", "Exit"),
         ("1", "List movies"),
         ("2", "Add movie"),
         ("3", "Delete movie"),
@@ -416,7 +415,6 @@ def _build_cli_sidebar() -> str:
 def _build_cli_action_cards() -> str:
     """Build action cards for the center panel after clicking a CLI action."""
     action_queries = [
-        ("0", "Exit"),
         ("1", "List movies"),
         ("2", "Add movie"),
         ("3", "Delete movie"),
@@ -432,7 +430,6 @@ def _build_cli_action_cards() -> str:
     ]
 
     action_prompts = {
-        "0": "In der CLI: Wähle im Menü die Eingabe 0 ein, um die App zu beenden.",
         "1": "In der CLI: Gib als nächste Eingabe 1 ein, um die Filme anzuzeigen.",
         "2": "In der CLI: Gib als nächste Eingabe 2 ein, dann 'Enter movie name'.",
         "3": "In der CLI: Gib als nächste Eingabe 3 ein, dann 'Enter movie name to delete'.",
