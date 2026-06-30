@@ -286,6 +286,31 @@
         commandInput.value = '';
       };
 
+      const exitApplication = () => {
+        appLayout.classList.add('app-layout--menu-hidden');
+        appLayout.classList.add('app-layout--no-command-panel');
+        userSelectPanel.classList.add('is-hidden');
+        moviesPanel.classList.add('is-hidden');
+        actionPanel.classList.add('is-hidden');
+        hideCommandPanel();
+        hideStatsView();
+        hideRandomView();
+        hideSearchView();
+        hideFilterView();
+        hideActionCards();
+        window.setTimeout(() => {
+          try {
+            window.close();
+          } catch (error) {
+            console.warn('window.close() failed:', error);
+          }
+
+          if (window.location.href !== 'about:blank') {
+            window.location.replace('about:blank');
+          }
+        }, 0);
+      };
+
       const showMovieList = () => {
         restoreActionGrid();
         moviesPanel.classList.remove('is-hidden');
@@ -856,7 +881,7 @@
         }
 
         if (chosenChoice === '0') {
-          showStartPage();
+          exitApplication();
           return;
         }
 

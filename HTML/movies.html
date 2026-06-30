@@ -258,7 +258,6 @@
 
         <section class="panel action-panel is-hidden" id="action-panel">
             <div class="action-grid">
-                <button type="button" class="action-card" data-action-choice="0" data-action-prompt="In der CLI: Wähle im Menü die Eingabe 0 ein, um die App zu beenden.">0. Exit</button>
 <button type="button" class="action-card" data-action-choice="1" data-action-prompt="In der CLI: Gib als nächste Eingabe 1 ein, um die Filme anzuzeigen.">1. List movies</button>
 <button type="button" class="action-card" data-action-choice="2" data-action-prompt="In der CLI: Gib als nächste Eingabe 2 ein, dann &#x27;Enter movie name&#x27;.">2. Add movie</button>
 <button type="button" class="action-card" data-action-choice="3" data-action-prompt="In der CLI: Gib als nächste Eingabe 3 ein, dann &#x27;Enter movie name to delete&#x27;.">3. Delete movie</button>
@@ -438,6 +437,31 @@
         restoreActionGrid();
         hideActionCards();
         commandInput.value = '';
+      };
+
+      const exitApplication = () => {
+        appLayout.classList.add('app-layout--menu-hidden');
+        appLayout.classList.add('app-layout--no-command-panel');
+        userSelectPanel.classList.add('is-hidden');
+        moviesPanel.classList.add('is-hidden');
+        actionPanel.classList.add('is-hidden');
+        hideCommandPanel();
+        hideStatsView();
+        hideRandomView();
+        hideSearchView();
+        hideFilterView();
+        hideActionCards();
+        window.setTimeout(() => {
+          try {
+            window.close();
+          } catch (error) {
+            console.warn('window.close() failed:', error);
+          }
+
+          if (window.location.href !== 'about:blank') {
+            window.location.replace('about:blank');
+          }
+        }, 0);
       };
 
       const showMovieList = () => {
@@ -1010,7 +1034,7 @@
         }
 
         if (chosenChoice === '0') {
-          showStartPage();
+          exitApplication();
           return;
         }
 

@@ -250,6 +250,33 @@ window.__MOVIE_APP_EXTERNAL__ = true;
     movieFilterEndYearInput.value = '';
   };
 
+  const exitApplication = () => {
+    appLayout.classList.add('app-layout--menu-hidden');
+    appLayout.classList.add('app-layout--no-command-panel');
+    userSelectPanel.classList.add('is-hidden');
+    moviesPanel.classList.add('is-hidden');
+    actionPanel.classList.add('is-hidden');
+    commandPanel.hidden = true;
+    commandPanel.style.display = 'none';
+    commandPanel.classList.add('is-hidden');
+    hideStatsView();
+    hideRandomView();
+    hideSearchView();
+    hideFilterView();
+    hideActionCards();
+    window.setTimeout(() => {
+      try {
+        window.close();
+      } catch (error) {
+        console.warn('window.close() failed:', error);
+      }
+
+      if (window.location.href !== 'about:blank') {
+        window.location.replace('about:blank');
+      }
+    }, 0);
+  };
+
   const loadMovies = async () => {
     const payload = await apiFetch('/movies');
     const movies = payload.movies || [];
@@ -670,7 +697,7 @@ window.__MOVIE_APP_EXTERNAL__ = true;
     }
 
     if (chosenChoice === '0') {
-      showStartPage();
+      exitApplication();
       return;
     }
 
