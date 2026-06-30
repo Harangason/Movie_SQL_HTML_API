@@ -492,8 +492,31 @@ def generate_website():
     website_html = template.replace("__TEMPLATE_TITLE__", escape(APP_TITLE))
     website_html = website_html.replace("__TEMPLATE_MOVIE_GRID__", movie_grid)
 
-    WEBSITE_FILE.write_text(website_html, encoding="utf-8")
-    print("Website was generated successfully.")
+    with open(WEBSITE_FILE, "w", encoding="utf-8") as output_file:
+        output_file.write(website_html)
+        output_file.flush()
+        os.fsync(output_file.fileno())
+
+    info(f"Website generated successfully as {WEBSITE_FILE.name}")
+    return True
+
+
+def open_generated_website() -> bool:
+    """Open the generated HTML website in the default browser."""
+    if not WEBSITE_FILE.exists():
+        error(f"Website file not found: {WEBSITE_FILE.name}")
+        return False
+
+    webbrowser.open(WEBSITE_FILE.resolve().as_uri())
+    info(f"Opened {WEBSITE_FILE.name} in the browser.")
+    return True
+
+
+def generate_and_open_website() -> None:
+    """Generate the HTML website and open it afterwards."""
+    if generate_website():
+        open_generated_website()
+
 
 def leave_program():
     print("Bye!")
