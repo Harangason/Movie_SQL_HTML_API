@@ -2,10 +2,11 @@
 <head>
     <title>My Movie App</title>
     <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-<div class="list-movies-title">
+<header class="list-movies-title">
     <h1>__TEMPLATE_TITLE__</h1>
 </header>
     <div class="app-layout app-layout--menu-hidden">
@@ -35,7 +36,7 @@
 
         <section class="panel cli-command-panel is-hidden" id="cli-action-input-panel">
             <div class="cli-command-view" id="cli-command-view">
-                <p class="cli-input-label">Enter choice (0-13):</p>
+                <p class="cli-input-label">Enter choice (0-12):</p>
                 <div class="cli-command-row">
                     <span class="cli-input-prompt">></span>
                     <input type="text" id="cli-command-input" class="cli-command-input" placeholder="Type command number" inputmode="numeric" />
@@ -132,8 +133,13 @@
     </main>
 </div>
 
+<script src="movie_app.js"></script>
 <script>
     (function () {
+      if (window.__MOVIE_APP_EXTERNAL__) {
+        return;
+      }
+
       const userCards = document.querySelectorAll('[data-user-id], [data-action="create-user"]');
       const cliItems = document.querySelectorAll('[data-cli-choice]');
       const appLayout = document.querySelector('.app-layout');
@@ -178,8 +184,6 @@
       const movieFilterResults = document.getElementById('movie-filter-results');
       const selectedUserName = document.getElementById('selected-user');
       const userSelectPrompt = document.querySelector('.user-select-panel p');
-      const userApiBaseUrl = 'http://127.0.0.1:5000';
-
       const createUserFromPrompt = async () => {
         const firstNameInput = window.prompt('Enter new user first name:');
         if (firstNameInput === null) {
@@ -197,29 +201,10 @@
           return;
         }
 
-        try {
-          const response = await fetch(`${userApiBaseUrl}/api/users`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              name: firstName,
-              last_name: lastNameInput.trim(),
-            }),
-          });
-
-          if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(errorText || 'Could not create user.');
-          }
-
-          const payload = await response.json();
-          userSelectPrompt.textContent = `Created: ${payload.display_name}`;
-          window.setTimeout(() => window.location.reload(), 300);
-        } catch (error) {
-          window.alert(`Could not create user: ${error.message}`);
-        }
+        const lastName = lastNameInput.trim();
+        const displayName = lastName ? `${firstName} ${lastName}` : firstName;
+        selectedUserName.textContent = displayName;
+        userSelectPrompt.textContent = `Created: ${displayName}`;
       };
 
       const hideActionCards = () => {
@@ -458,6 +443,7 @@
       };
 
       const showSearchView = () => {
+        showCommandPanel();
         commandPanel.classList.remove('is-hidden');
         commandView.classList.add('is-hidden');
         movieAddView.classList.add('is-hidden');
@@ -515,6 +501,7 @@
       };
 
       const showFilterView = () => {
+        showCommandPanel();
         commandPanel.classList.remove('is-hidden');
         commandView.classList.add('is-hidden');
         movieAddView.classList.add('is-hidden');
@@ -788,6 +775,7 @@
       };
 
       const showAddMovieView = () => {
+        showCommandPanel();
         commandPanel.classList.remove('is-hidden');
         commandView.classList.add('is-hidden');
         movieAddView.classList.remove('is-hidden');
@@ -804,6 +792,7 @@
       };
 
       const showDeleteMovieView = () => {
+        showCommandPanel();
         commandPanel.classList.remove('is-hidden');
         commandView.classList.add('is-hidden');
         movieAddView.classList.add('is-hidden');
@@ -819,6 +808,7 @@
       };
 
       const showUpdateMovieView = () => {
+        showCommandPanel();
         commandPanel.classList.remove('is-hidden');
         commandView.classList.add('is-hidden');
         movieAddView.classList.add('is-hidden');
@@ -957,7 +947,7 @@
           return;
         }
 
-        if (chosenChoice === '13') {
+        if (chosenChoice === '12') {
           showStartPage();
           return;
         }
