@@ -1,0 +1,4 @@
+__pycache__/
+*.py[cod]
+.venv/
+Movie_SQL_HTML_API/
