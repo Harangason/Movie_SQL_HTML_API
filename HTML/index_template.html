@@ -9,7 +9,7 @@
 <header class="list-movies-title">
     <h1>__TEMPLATE_TITLE__</h1>
 </header>
-    <div class="app-layout app-layout--menu-hidden">
+    <div class="app-layout">
         <aside class="sidebar">
             <section class="panel cli-panel">
                 <h2>CLI Menu</h2>
@@ -34,7 +34,7 @@
             </ol>
         </section>
 
-        <section class="panel cli-command-panel is-hidden" id="cli-action-input-panel">
+        <section class="panel cli-command-panel is-hidden" id="cli-action-input-panel" hidden>
             <div class="cli-command-view" id="cli-command-view">
                 <p class="cli-input-label">Enter choice (0-12):</p>
                 <div class="cli-command-row">
@@ -115,7 +115,6 @@
         </section>
 
         <section class="panel action-panel is-hidden" id="action-panel">
-            <h2>Action</h2>
             <div class="action-grid">
                 __TEMPLATE_CLI_ACTION_CARDS__
             </div>
@@ -856,6 +855,11 @@
           return;
         }
 
+        if (chosenChoice === '0') {
+          showStartPage();
+          return;
+        }
+
         if (chosenChoice === '1') {
           showMovieList();
           return;
@@ -896,7 +900,6 @@
         if (chosenChoice === '8') {
           moviesPanel.classList.add('is-hidden');
           actionPanel.classList.remove('is-hidden');
-          showCommandView();
           hideCommandPanel();
           renderSortedMovieResults('Movies sorted by rating (highest first).', (a, b) => {
             if (b.rating !== a.rating) {
@@ -911,7 +914,6 @@
         if (chosenChoice === '9') {
           moviesPanel.classList.add('is-hidden');
           actionPanel.classList.remove('is-hidden');
-          showCommandView();
           hideCommandPanel();
           renderSortedMovieResults('Movies sorted by year (newest first).', (a, b) => {
             if (b.year !== a.year) {
@@ -926,7 +928,6 @@
         if (chosenChoice === '10') {
           moviesPanel.classList.add('is-hidden');
           actionPanel.classList.remove('is-hidden');
-          showCommandView();
           hideCommandPanel();
           renderRatingHistogram();
           return;
@@ -972,7 +973,7 @@
 
         moviesPanel.classList.add('is-hidden');
         actionPanel.classList.remove('is-hidden');
-        showCommandView();
+        hideCommandPanel();
       };
 
       cliItems.forEach((cliItem) => {
@@ -1108,7 +1109,7 @@
       });
 
       commandInput.setAttribute('aria-label', 'Command input');
-      showCommandView();
+      hideCommandPanel();
       hideActionCards();
       restoreActionGrid();
     })();

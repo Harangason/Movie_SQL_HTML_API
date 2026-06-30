@@ -9,7 +9,7 @@
 <header class="list-movies-title">
     <h1>My Movie App</h1>
 </header>
-    <div class="app-layout app-layout--menu-hidden">
+    <div class="app-layout">
         <aside class="sidebar">
             <section class="panel cli-panel">
                 <h2>CLI Menu</h2>
@@ -35,14 +35,15 @@
                 <h2>Select user</h2>
                 <p>Pick a user tile to display the movie overview.</p>
                 <div class="user-grid">
-                            <button type="button" class="user-card user-card selected" data-user-id="2" data-user-name="Martin Drexler">Martin Drexler</button>
-        <button type="button" class="user-card" data-user-id="1" data-user-name="Default User">Default User</button>
+                            <button type="button" class="user-card" data-user-id="2" data-user-name="Martin Drexler">Martin Drexler</button>
+        <button type="button" class="user-card" data-user-id="3" data-user-name="Masterschool april">Masterschool april</button>
+        <button type="button" class="user-card user-card selected" data-user-id="1" data-user-name="Default User">Default User</button>
         <button type="button" class="user-card user-card-new" data-action="create-user">Create new user</button>
             </div>
         </section>
 
         <section class="panel movies-panel is-hidden" id="movies-panel">
-            <h2>Welcome, <span id="selected-user">Martin Drexler</span></h2>
+            <h2>Welcome, <span id="selected-user">Default User</span></h2>
             <ol class="movie-grid">
                             <li>
                 <div class="movie">
@@ -175,7 +176,7 @@
             </ol>
         </section>
 
-        <section class="panel cli-command-panel is-hidden" id="cli-action-input-panel">
+        <section class="panel cli-command-panel is-hidden" id="cli-action-input-panel" hidden>
             <div class="cli-command-view" id="cli-command-view">
                 <p class="cli-input-label">Enter choice (0-12):</p>
                 <div class="cli-command-row">
@@ -256,7 +257,6 @@
         </section>
 
         <section class="panel action-panel is-hidden" id="action-panel">
-            <h2>Action</h2>
             <div class="action-grid">
                 <button type="button" class="action-card" data-action-choice="0" data-action-prompt="In der CLI: Wähle im Menü die Eingabe 0 ein, um die App zu beenden.">0. Exit</button>
 <button type="button" class="action-card" data-action-choice="1" data-action-prompt="In der CLI: Gib als nächste Eingabe 1 ein, um die Filme anzuzeigen.">1. List movies</button>
@@ -1009,6 +1009,11 @@
           return;
         }
 
+        if (chosenChoice === '0') {
+          showStartPage();
+          return;
+        }
+
         if (chosenChoice === '1') {
           showMovieList();
           return;
@@ -1049,7 +1054,6 @@
         if (chosenChoice === '8') {
           moviesPanel.classList.add('is-hidden');
           actionPanel.classList.remove('is-hidden');
-          showCommandView();
           hideCommandPanel();
           renderSortedMovieResults('Movies sorted by rating (highest first).', (a, b) => {
             if (b.rating !== a.rating) {
@@ -1064,7 +1068,6 @@
         if (chosenChoice === '9') {
           moviesPanel.classList.add('is-hidden');
           actionPanel.classList.remove('is-hidden');
-          showCommandView();
           hideCommandPanel();
           renderSortedMovieResults('Movies sorted by year (newest first).', (a, b) => {
             if (b.year !== a.year) {
@@ -1079,7 +1082,6 @@
         if (chosenChoice === '10') {
           moviesPanel.classList.add('is-hidden');
           actionPanel.classList.remove('is-hidden');
-          showCommandView();
           hideCommandPanel();
           renderRatingHistogram();
           return;
@@ -1125,7 +1127,7 @@
 
         moviesPanel.classList.add('is-hidden');
         actionPanel.classList.remove('is-hidden');
-        showCommandView();
+        hideCommandPanel();
       };
 
       cliItems.forEach((cliItem) => {
@@ -1261,7 +1263,7 @@
       });
 
       commandInput.setAttribute('aria-label', 'Command input');
-      showCommandView();
+      hideCommandPanel();
       hideActionCards();
       restoreActionGrid();
     })();

@@ -258,6 +258,7 @@ window.__MOVIE_APP_EXTERNAL__ = true;
   };
 
   const showMovieList = async () => {
+    hideCommandPanel();
     await loadMovies();
     restoreActionGrid();
     showCliMenu();
@@ -268,11 +269,12 @@ window.__MOVIE_APP_EXTERNAL__ = true;
     hideRandomView();
     hideSearchView();
     hideFilterView();
-    commandPanel.classList.add('is-hidden');
+    hideCommandPanel();
     hideActionCards();
   };
 
   const showStatsView = async () => {
+    hideCommandPanel();
     const payload = await apiFetch('/movies/stats');
     const stats = payload.stats || {};
 
@@ -314,6 +316,7 @@ window.__MOVIE_APP_EXTERNAL__ = true;
   };
 
   const showRandomMovieView = async () => {
+    hideCommandPanel();
     const payload = await apiFetch('/movies/random');
     const movie = payload.movie;
 
@@ -354,7 +357,7 @@ window.__MOVIE_APP_EXTERNAL__ = true;
 
     moviesPanel.classList.add('is-hidden');
     actionPanel.classList.add('is-hidden');
-    commandPanel.classList.add('is-hidden');
+    hideCommandPanel();
     hideSearchView();
     hideStatsView();
     randomPanel.classList.remove('is-hidden');
@@ -666,6 +669,11 @@ window.__MOVIE_APP_EXTERNAL__ = true;
       return;
     }
 
+    if (chosenChoice === '0') {
+      showStartPage();
+      return;
+    }
+
     if (chosenChoice === '1') {
       await showMovieList();
       return;
@@ -772,7 +780,7 @@ window.__MOVIE_APP_EXTERNAL__ = true;
 
     moviesPanel.classList.add('is-hidden');
     actionPanel.classList.remove('is-hidden');
-    showCommandView();
+    hideCommandPanel();
   };
 
   const createUserFromPrompt = async () => {
@@ -1001,11 +1009,24 @@ window.__MOVIE_APP_EXTERNAL__ = true;
 
   const bootstrap = async () => {
     const users = await getUsers();
-    const activeUser = await getActiveUser();
-    renderUserGrid(users, activeUser.id);
-    localStorage.setItem(ACTIVE_USER_STORAGE_KEY, String(activeUser.id));
+    const activeUser = await getActiveUser().catch(() => null);
+    const storedActiveUserId = Number.parseInt(localStorage.getItem(ACTIVE_USER_STORAGE_KEY) || '', 10);
+    const fallbackUser = (activeUser && Number.isFinite(Number(activeUser.id)) ? activeUser : null)
+      || users.find((user) => Number(user.id) === storedActiveUserId)
+      || users[0]
+      || null;
+
+    renderUserGrid(users, fallbackUser?.id ?? null);
     refreshActionCards();
-    showStartPage();
+
+    if (!fallbackUser) {
+      showStartPage();
+      return;
+    }
+
+    localStorage.setItem(ACTIVE_USER_STORAGE_KEY, String(fallbackUser.id));
+    renderSelectedUser(fallbackUser);
+    await showMovieList();
   };
 
   commandInput.setAttribute('aria-label', 'Command input');
