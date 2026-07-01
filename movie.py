@@ -830,6 +830,32 @@ def generate_and_open_website() -> None:
         open_generated_website()
 
 
+def _browser_app_is_available() -> bool:
+    """Return True when the HTML frontend can be started from this checkout."""
+    required_files = [
+        TEMPLATE_FILE,
+        HTML_DIR / "style.css",
+        HTML_DIR / "movie_app.js",
+    ]
+    return all(file_path.exists() for file_path in required_files)
+
+
+def _start_browser_app() -> bool:
+    """Start the local HTTP server that serves the HTML frontend."""
+    try:
+        import movie_web_server
+    except ModuleNotFoundError:
+        error("Browser server not found. Falling back to CLI.")
+        return False
+
+    try:
+        movie_web_server.main()
+        return True
+    except Exception as exc:
+        error(f"Could not start browser app: {exc}")
+        return False
+
+
 def leave_program():
     print("Bye!")
     sys.exit(0)
@@ -911,8 +937,7 @@ def run_cli():
 
 
 def main():
-    if WEBSITE_FILE.exists():
-        open_generated_website()
+    if _browser_app_is_available() and _start_browser_app():
         return
 
     run_cli()
